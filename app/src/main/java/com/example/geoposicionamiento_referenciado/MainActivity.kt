@@ -45,7 +45,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setup() {
-        targetlocations.add(LocationData("Casita",19.624665,-99.114824,R.drawable.casita))
+        targetlocations.add(LocationData("CCAI",19.631050,-99.113775,R.drawable.ccai))
+        targetlocations.add(LocationData("Biblioteca digital",19.631633,-99.113574,R.drawable.biblioteca_digital))
+        targetlocations.add(LocationData("Servicio Social/ Residencias",19.628361,-99.114387,R.drawable.tesco_img_arco))
+        targetlocations.add(LocationData("Edificio C",19.629659,-99.114339,R.drawable.edificio_c))
+        targetlocations.add(LocationData("Edificio A", 19.630982,-99.114540,R.drawable.edificio_a))
+        targetlocations.add(LocationData("Estacionamiento",19.630099,-99.113936,R.drawable.estacionamiento))
+        targetlocations.add(LocationData("Puerta principal",19.6320,-99.1140,R.drawable.puerta_principal))
 
     }
 
@@ -63,15 +69,19 @@ class MainActivity : AppCompatActivity() {
                         location.distanceTo(target.toLocation())
                     }
 
-                    val nombre = if (closesLocation != null && closesLocation.isWithinRange(location,10.0)){
+                    val nombre = if (closesLocation != null && closesLocation.isWithinRange(location,25.0)){
                         closesLocation.name
                     } else {
                         "Acercate a una ubicacion"
                     }
                     binding.name.text = nombre
 
-                    val drawableResId = closesLocation?.image?:R.drawable.ubicacion
-                    val drawable: Drawable? = ContextCompat.getDrawable(this@MainActivity,drawableResId)
+                    val image = if (closesLocation != null && closesLocation.isWithinRange(location,25.0)){
+                        closesLocation.image
+                    }else{
+                        R.drawable.ubicacion
+                    }
+                    val drawable: Drawable? = ContextCompat.getDrawable(this@MainActivity,image)
                     binding.image.setImageDrawable(drawable)
                 }
             }
